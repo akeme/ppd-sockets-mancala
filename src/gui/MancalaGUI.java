@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.util.Random;
 
 @SuppressWarnings("serial")
-public class MancalaGUI extends JFrame {
+public class MancalaGUI extends JPanel {
 
 	private ImagePanel jContentPane = null;
 	private JPanel jTopPanel;
@@ -189,10 +189,10 @@ public class MancalaGUI extends JFrame {
 	 * 
 	 */
 	private void initialize() {
-		this.setContentPane(getJContentPane());
-		this.setTitle("Mancala");
+		this.add(getJContentPane());
+		//this.setTitle("Mancala");
 		this.setSize(600, 240);
-		this.setLocationRelativeTo(null);
+		//this.setLocationRelativeTo(null);
 	}
 
 	/**

@@ -1,8 +1,7 @@
 package gui;
 
-import game.ImagePanel;
-import chat.Client;
 import chat.ChatMessage;
+import chat.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,7 @@ import java.awt.event.*;
  * The Client with its GUI
  */
 public class BoardGame extends JFrame implements ActionListener {
-	//chat 
+
 	private static final long serialVersionUID = 1L;
 	// will first hold "Username:", later on "Enter message"
 	private JLabel label;
@@ -32,8 +31,9 @@ public class BoardGame extends JFrame implements ActionListener {
 	// the default port number
 	private int defaultPort;
 	private String defaultHost;
-	private JPanel chatPanel;
-	//game
+	
+	JPanel chatPanel, gamePanel;
+	
 
 	// Constructor connection receiving a socket number
 	BoardGame(String host, int port) {
@@ -42,26 +42,14 @@ public class BoardGame extends JFrame implements ActionListener {
 		defaultPort = port;
 		defaultHost = host;
 		
-		JFrame frame = new JFrame();
-		frame.setBounds(50, 50, 800, 600);
-		frame.setLayout(new BorderLayout(0,0));
+		chatPanel = new JPanel(new BorderLayout());
+		gamePanel = new JPanel(new BorderLayout());
 		
-		frame.setSize(800,600);
 		
-		//make chat panel
-		chatPanel = new JPanel();
-				
-		//chatPanel.setSize(150,600);
-		frame.add(chatPanel, BorderLayout.EAST);
-		
-		JPanel gamePanel = new JPanel();
-		frame.add(gamePanel, BorderLayout.CENTER);
-		
-		chatPanel.setLayout(new BorderLayout(10, 10));
 		
 		// The NorthPanel with:
 		JPanel northPanel = new JPanel(new GridLayout(3,1));
-		// the server name and the port number
+		// the server name anmd the port number
 		JPanel serverAndPort = new JPanel(new GridLayout(1,5, 1, 3));
 		// the two JTextField with default value for server address and port number
 		tfServer = new JTextField(host);
@@ -82,14 +70,14 @@ public class BoardGame extends JFrame implements ActionListener {
 		tf = new JTextField("Anonymous");
 		tf.setBackground(Color.WHITE);
 		northPanel.add(tf);
-		chatPanel.add(northPanel,BorderLayout.NORTH);
+		chatPanel.add(northPanel, BorderLayout.NORTH);
 
 		// The CenterPanel which is the chat room
 		ta = new JTextArea("Welcome to the Chat room\n", 80, 80);
 		JPanel centerPanel = new JPanel(new GridLayout(1,1));
 		centerPanel.add(new JScrollPane(ta));
 		ta.setEditable(false);
-		chatPanel.add(centerPanel,BorderLayout.CENTER);
+		chatPanel.add(centerPanel, BorderLayout.CENTER);
 
 		// the 3 buttons
 		login = new JButton("Login");
@@ -105,11 +93,13 @@ public class BoardGame extends JFrame implements ActionListener {
 		southPanel.add(login);
 		southPanel.add(logout);
 		southPanel.add(whoIsIn);
-		chatPanel.add(southPanel,BorderLayout.SOUTH);
+		chatPanel.add(southPanel, BorderLayout.SOUTH);
+		chatPanel.setSize(150, 600);
 		
-
+		add(chatPanel, BorderLayout.EAST);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(600, 600);
 		setVisible(true);
 		tf.requestFocus();
 
